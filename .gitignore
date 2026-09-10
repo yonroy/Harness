@@ -1,0 +1,15 @@
+# Harness package — chỉ chứa spec + template + script.
+# KHÔNG commit memory hub của bất kỳ dự án nào.
+_projects/
+_global/
+
+# File cấu hình cục bộ máy (không portable)
+*.local
+.harnessrc
+
+# Rác OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
