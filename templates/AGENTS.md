@@ -20,7 +20,7 @@ Yêu cầu → [Cổng 1: FEATURE_INTAKE]  → việc loại gì?  tiny / normal
 
 - ❌ **KHÔNG** jump to code. Mọi feature mới phải qua **Cổng 1** trước.
 - ✅ Sau intake → **Cổng 2** chọn hình thái thực thi. Mặc định **KHÔNG dùng team**.
-  Luật đầy đủ: `<đường dẫn Harness package>/spec/agent-team-playbook.md`. VETO team nếu: việc tuần tự · nhiều phần cùng sửa 1 file · task nhỏ 1 domain · cần context hội thoại trong session.
+  Luật đầy đủ: `{{HARNESS_PACKAGE}}/spec/agent-team-playbook.md`. VETO team nếu: việc tuần tự · nhiều phần cùng sửa 1 file · task nhỏ 1 domain · cần context hội thoại trong session.
 - ✅ Decision kiến trúc durable → `HARNESS/decisions/ADR-XXX-[slug].md`
 - ✅ Decision tactical (session-scope) → `MEMORY/DECISIONS.md`
 - ✅ Behavior mới → update `HARNESS/TEST_MATRIX.md`

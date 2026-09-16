@@ -16,12 +16,21 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_ROOT="$(dirname "$SCRIPT_DIR")"
 TEMPLATES_ROOT="$PACKAGE_ROOT/templates"
 
+pkg_version() {
+  if [[ -f "$PACKAGE_ROOT/VERSION" ]]; then
+    head -n1 "$PACKAGE_ROOT/VERSION" | tr -d '[:space:]'
+  else
+    echo "unknown"
+  fi
+}
+
 show_help() {
+  echo "harness $(pkg_version) — portable Second Brain v2 scaffolder"
   cat <<'EOF'
-harness — portable Second Brain v2 scaffolder
 
 Lệnh:
   harness init [options]   Khởi tạo harness cho dự án
+  harness version          In phiên bản
   harness help             In trợ giúp
 
 Options cho init:
@@ -56,6 +65,7 @@ expand_tokens() {
   content="${content//\{\{PROJECT_PATH\}\}/$PATH_ARG}"
   content="${content//\{\{DATE\}\}/$TODAY}"
   content="${content//\{\{SECOND_BRAIN_ROOT\}\}/$ROOT}"
+  content="${content//\{\{HARNESS_PACKAGE\}\}/$PACKAGE_ROOT}"
   content="${content//\{\{STACK\}\}/$STACK}"
   printf '%s\n' "$content"
 }
@@ -77,6 +87,7 @@ copy_tpl() {
 CMD="$1"; shift || true
 case "$CMD" in
   help|-h|--help) show_help; exit 0 ;;
+  version|-v|--version) echo "harness $(pkg_version)"; exit 0 ;;
   init) : ;;
   *) echo "❌ Lệnh không hợp lệ: $CMD" >&2; show_help; exit 1 ;;
 esac

@@ -19,6 +19,12 @@ $ErrorActionPreference = "Stop"
 $PackageRoot   = Split-Path -Parent $PSScriptRoot
 $TemplatesRoot = Join-Path $PackageRoot "templates"
 
+function Get-PkgVersion {
+    $vf = Join-Path $PackageRoot "VERSION"
+    if (Test-Path $vf) { return (Get-Content $vf -TotalCount 1).Trim() }
+    return "unknown"
+}
+
 function Write-Utf8NoBom([string]$Path, [string]$Content) {
     $enc = New-Object System.Text.UTF8Encoding($false)
     [System.IO.File]::WriteAllText($Path, $Content, $enc)
@@ -61,10 +67,11 @@ function Copy-Tpl([string]$Src, [string]$Dst, [hashtable]$Tok, [System.Collectio
 
 function Show-Help {
     Write-Host @"
-harness — portable Second Brain v2 scaffolder
+harness $(Get-PkgVersion) — portable Second Brain v2 scaffolder
 
 Lệnh:
   harness init [options]   Khởi tạo harness cho dự án
+  harness version          In phiên bản
   harness help             In trợ giúp
 
 Options cho init:
@@ -81,6 +88,7 @@ Chi tiết: README.md, docs/INSTALL.md
 if ($args.Count -eq 0) { Show-Help; exit 0 }
 $cmd = $args[0]
 if ($cmd -eq "help" -or $cmd -eq "-h" -or $cmd -eq "--help") { Show-Help; exit 0 }
+if ($cmd -eq "version" -or $cmd -eq "-v" -or $cmd -eq "--version") { Write-Host "harness $(Get-PkgVersion)"; exit 0 }
 if ($cmd -ne "init") {
     Write-Host "❌ Lệnh không hợp lệ: $cmd" -ForegroundColor Red
     Show-Help; exit 1
@@ -112,6 +120,7 @@ $Tok = @{
     "PROJECT_PATH"      = $Path
     "DATE"              = $Today
     "SECOND_BRAIN_ROOT" = $Root
+    "HARNESS_PACKAGE"   = $PackageRoot
     "STACK"             = "[TBD — điền sau]"
 }
 

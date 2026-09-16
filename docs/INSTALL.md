@@ -4,13 +4,22 @@ Package chỉ cần **một biến môi trường** để chạy: `SECOND_BRAIN_
 
 ---
 
-## 1. Clone package
+## 1. Lấy package
 
+### Cách A — git clone (khuyến nghị)
 ```bash
 git clone <repo-url> D:/SecondBrain/Harness
 ```
 
-Có thể clone vào bất kỳ đâu; script không phụ thuộc vị trí của chính nó.
+### Cách B — tải ZIP
+Giải nén rồi **kiểm tra không bị lồng thư mục**: GitHub đặt tên thư mục là `Harness-master` (hoặc `-main`). Bên trong `D:/SecondBrain/Harness` phải thấy trực tiếp `bin/`, `templates/`, `spec/` — KHÔNG được lồng thêm một lớp `Harness-master/` nữa. Nếu bị lồng, di chuyển nội dung ra ngoài:
+
+```bash
+# Linux/Mac
+unzip Harness-main.zip && mv Harness-main ~/Harness && chmod +x ~/Harness/bin/harness.sh
+```
+
+Có thể đặt package ở bất kỳ đâu; script không phụ thuộc vị trí của chính nó (tự resolve qua đường dẫn của bin/).
 
 ---
 
