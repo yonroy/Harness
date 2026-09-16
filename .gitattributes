@@ -1,0 +1,7 @@
+# Ép line-ending theo nền tảng để script chạy đúng ở mọi máy.
+# .sh PHẢI là LF (CRLF làm hỏng shebang trên Linux/Mac: "bad interpreter").
+*.sh   text eol=lf
+# .ps1 dùng CRLF cho Windows (PowerShell 5.1). BOM UTF-8 vẫn giữ (là nội dung).
+*.ps1  text eol=crlf
+# Markdown/text: chuẩn hoá về LF trong repo.
+*.md   text eol=lf
